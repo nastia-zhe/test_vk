@@ -1,0 +1,42 @@
+import pytest
+
+
+#Проверка структуры данных float:
+
+f = float(5.5)
+
+#Проверка1: float может между двумя целыми числами
+def test_between_ints():
+    assert f > 5 and f < 6
+
+#Проверка2: float содержит точку (параметризованный тест)
+@pytest.mark.parametrize("test_input", [float(5), float(5.0), float(5.5), float(0), float(-5)])
+def test_dot(test_input):
+    str_f = str(test_input)
+    assert '.' in str_f
+
+#Проверка3: float при сложении с целым числом остается float
+def test_plus_int():
+    sum_f_int = f + 2
+    assert isinstance(sum_f_int, type(f))
+
+
+#Проверка структуры данных set:
+
+s = set(['ivanov','petrov','sidorov','ivanov'])
+
+#Проверка1: set содержит только уникальные элементы
+def test_set_unique():
+    spisok = list(s)
+    d = {i:1 for i in spisok}
+    assert len(d) == len(s)
+
+#Проверка2: в set можно добавить новый элемент
+def test_set_add():
+    s.add('Smirnov')
+    assert 'Smirnov' in s
+
+#Проверка: к элементам set нельзя обратиться по индексу (негативный тест)
+def test_set_index():
+    with pytest.raises(TypeError):
+        s[0]
